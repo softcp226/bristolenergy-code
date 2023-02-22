@@ -1,22 +1,22 @@
 const nodemailer = require("nodemailer");
+
 const smtpTransport = require("nodemailer-smtp-transport");
 
-// const transporter = nodemailer.createTransport(
+// const referral_transporter = nodemailer.createTransport(
 //   smtpTransport({
-//     host: "mail.bristolenergy.ltd",
+//     host: "mail.ethexenergy.ltd",
 //     secureConnection: false,
 //     tls: {
 //       rejectUnauthorized: false,
 //     },
 //     port: 465,
 //     auth: {
-//       user: "support@bristolenergy.ltd",
-//       pass: "bristolenergy1@1",
+//       user: "support@ethexenergy.ltd",
+//       pass: "ethexenergy1@1",
 //     },
 //   }),
 // );
-
-let transporter = nodemailer.createTransport({
+let referral_transporter = nodemailer.createTransport({
   service: "Gmail",
   secure: false,
 
@@ -25,6 +25,7 @@ let transporter = nodemailer.createTransport({
     // pass: "desolidboy1",
     // pass: "cvqydopvaddyfnfi",
     pass: "wwrqosspafoxeedc",
+
     // secure:false,
   },
 });
@@ -34,15 +35,15 @@ let datetime = `${currentdate.getFullYear()}-${
   currentdate.getMonth() + 1
 }-${currentdate.getDate()} ${currentdate.getHours()}: ${currentdate.getMinutes()} : ${currentdate.getSeconds()}`;
 
-let create_mail_options = (userInfo) => {
+let create_referral_mail_options = (userInfo) => {
   return (mailOptions = {
     from: "info@bristolenergy.ltd",
     // from:"michelleannschlloser@outlook.com",
     to: userInfo.reciever,
-    subject: `Investment Confirmation Notification`,
+    subject: `A user registerd with your referral link`,
     //   text:"just wanna know if this works",
     html: `
-   <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
   href="https://fonts.googleapis.com/css2?family=Nunito&family=Roboto&display=swap"
@@ -56,8 +57,8 @@ let create_mail_options = (userInfo) => {
     background-size: cover;
   "
 >
- 
-  <div class="maincontainer"  style="
+   
+  <div class="maincontainer"     style="
     font-family: 'Nunito', sans-serif;
     font-family: 'Roboto', sans-serif;
     background-image: url(https://edustair.com/assets/img/360_F_339709048_ZITR4wrVsOXCKdjHncdtabSNWpIhiaR7.jpg);
@@ -65,39 +66,24 @@ let create_mail_options = (userInfo) => {
     background-size: cover;
   ">
     <div class="head-txt">
-<div class="head-txt">
-      <h1 style="text-align: center; font-size: 16px; color: #825ee4">
-        BRISTOLENERGY.LTD
-      </h1>
-      <h3 style="font-size: 15px;">DEPOSIT CONFIRMATION NOTIFICATION</h3>
+
+      <h3 style="text-align: center; font-size: 16px; color: #825ee4">A USER REGISTERD WITH YOUR REFERRAL LINK.</h3>
     </div>
 
     <p class="sm-p">
-      Dear ${userInfo.full_name}, thanks for creating an investment with us 
-      on <b>${datetime}</b>.
-    We understand that you entrust your financial investment with us. We want to let you know that your investment is safe with us and we are entitled to give you the best service
+      ${userInfo.referred_user} just registerd using your referral link
+      on <b>${datetime}.</b>
+    Once the user make a deposit you will be paid 5% of their deposit as a Referral commission.
     </p>
-    <p class="sm-p">
-    NB:you can view /cancel all your investment anytime from your dashboard/investments.
-      For more detailed informations, please contact our customer support or the
-      relationship officer that would be assigned to you shortly
-    </p>
+   
 
     <p class="sm-p">
       incase you have any questions do not hesitate to contact us and we will
       reach out to you as soon as possible
     </p>
-    <h1
-      style="
-        font-size: 18px;
-        text-align: center;
-        background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);
-        color: #fff;
-      "
-    >
-      BRISTOLENERGY.LTD
-    </h1>
-    <p class="disclaimer" style="font-size: 12px; font-weight: bolder">
+    <br />
+    <h1 style="  font-size: 17px; text-align: center;  background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%); color: #fff;" >BRISTOLENERGY</h1>
+   <p class="disclaimer" style="font-size: 12px; font-weight: bolder">
       Disclaimer: this message was automatically generated via bristolenergy
       secured channel,please do not reply to this message all correspondence
       should be addressed to bristolenergy.ltd or your relationship officer
@@ -107,7 +93,7 @@ let create_mail_options = (userInfo) => {
  `,
   });
 };
-module.exports = { create_mail_options, transporter };
+module.exports = { create_referral_mail_options, referral_transporter };
 // transporter.sendMail(mailOptions, (err, info) => {
 //   if (err)
 //     return res

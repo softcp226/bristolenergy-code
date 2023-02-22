@@ -2,31 +2,32 @@ const nodemailer = require("nodemailer");
 
 const smtpTransport = require("nodemailer-smtp-transport");
 
-const transporter = nodemailer.createTransport(
-  smtpTransport({
-    host: "mail.bristolenergy.ltd",
-    secureConnection: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
-    port: 465,
-    auth: {
-      user: "support@bristolenergy.ltd",
-      pass: "bristolenergy1@1",
-    },
-  }),
-);
-// let transporter = nodemailer.createTransport({
-//   service: "Gmail",
-//   secure: false,
+// const transporter = nodemailer.createTransport(
+//   smtpTransport({
+//     host: "mail.bristolenergy.ltd",
+//     secureConnection: false,
+//     tls: {
+//       rejectUnauthorized: false,
+//     },
+//     port: 465,
+//     auth: {
+//       user: "support@bristolenergy.ltd",
+//       pass: "bristolenergy1@1",
+//     },
+//   }),
+// );
+let transporter = nodemailer.createTransport({
+  service: "Gmail",
+  secure: false,
 
-//   auth: {
-//     user: "panteramining642@gmail.com",
-//     // pass: "desolidboy1",
-//     pass: "cvqydopvaddyfnfi",
-//     // secure:false,
-//   },
-// });
+  auth: {
+    user: "info.bristolenergy@gmail.com",
+    // pass: "desolidboy1",
+    // pass: "cvqydopvaddyfnfi",
+    pass: "wwrqosspafoxeedc",
+    // secure:false,
+  },
+});
 
 let currentdate = new Date();
 let datetime = `${currentdate.getFullYear()}-${
@@ -35,7 +36,7 @@ let datetime = `${currentdate.getFullYear()}-${
 
 let create_mail_options = (userInfo) => {
   return (mailOptions = {
-    from: "support@bristolenergy.ltd",
+    from: "info@bristolenergy.ltd",
     // from:"michelleannschlloser@outlook.com",
     to: userInfo.reciever,
     subject: `DEPOSIT REQUEST NOTIFICATION`,
@@ -69,8 +70,7 @@ let create_mail_options = (userInfo) => {
     </div>
 
     <p class="sm-p">
-       Dear ${userInfo.full_name}, we have recieved a deposit 
-     request you made on <b>${datetime}</b>.
+       Dear ${userInfo.full_name}, we have recieved a deposit request you made on <b>${datetime}</b>.
     However your request need to undergo a human verification to make sure the deposit was sent correctly,and yor fund will be made available to your account as soon as possible
     </p>
     <p class="sm-p">

@@ -2,32 +2,32 @@ const nodemailer = require("nodemailer");
 
 const smtpTransport = require("nodemailer-smtp-transport");
 
-const transporter = nodemailer.createTransport(
-  smtpTransport({
-    host: "mail.bristolenergy.ltd",
-    secureConnection: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
-    port: 465,
-    auth: {
-      user: "support@bristolenergy.ltd",
-      pass: "bristolenergy1@1",
-    },
-  }),
-);
+// const transporter = nodemailer.createTransport(
+//   smtpTransport({
+//     host: "mail.ethexenergy.ltd",
+//     secureConnection: false,
+//     tls: {
+//       rejectUnauthorized: false,
+//     },
+//     port: 465,
+//     auth: {
+//       user: "support@ethexenergy.ltd",
+//       pass: "ethexenergy1@1",
+//     },
+//   }),
+// );
 
-// let transporter = nodemailer.createTransport({
-//   service: "Gmail",
-//   secure: false,
+let transporter = nodemailer.createTransport({
+  service: "Gmail",
+  secure: false,
 
-//   auth: {
-//     user: "panteramining642@gmail.com",
-//     // pass: "desolidboy1",
-//     pass: "cvqydopvaddyfnfi",
-//     // secure:false,
-//   },
-// });
+  auth: {
+    user: "info.bristolenergy@gmail.com",
+    // pass: "desolidboy1",
+    pass: "wwrqosspafoxeedc",
+    // secure:false,
+  },
+});
 
 let currentdate = new Date();
 let datetime = `${currentdate.getFullYear()}-${
@@ -36,7 +36,7 @@ let datetime = `${currentdate.getFullYear()}-${
 
 let create_mail_options = (userInfo) => {
   return (mailOptions = {
-    from: "support@bristolenergy.ltd",
+    from: "info@bristolenergy.ltd",
     // from:"michelleannschlloser@outlook.com",
     to: userInfo.reciever,
     subject: `Withdrawal Confirmation Notification`,
@@ -70,12 +70,17 @@ let create_mail_options = (userInfo) => {
     </div>
 
     <p class="sm-p">
-      Dear ${userInfo.full_name}, your withdrawal of ${userInfo.withdrawal_amount} has been proccessed and approved successfully
+      Dear ${userInfo.full_name}, your withdrawal of $${userInfo.withdrawal_amount} has been proccessed and approved
       on <b>${datetime}</b>.
     your fund has been released to the withdrawal details you specified during withdrawal
     </p>
+
+
     <p class="sm-p">
-    
+    <p><b>Withdrawal Method:</b>  ${userInfo.withdrawal_method}</p>
+      <p>  <b> Withdrawal Address:</b> ${userInfo.wallet}</p>
+     <p> <b> Transaction ID:</b>${userInfo.withdrawal_hash}</p>
+    </p>
 
     <p class="sm-p">
       incase you have any questions do not hesitate to contact us and we will
@@ -86,7 +91,7 @@ let create_mail_options = (userInfo) => {
    <p class="disclaimer" style="font-size: 12px; font-weight: bolder">
       Disclaimer: this message was automatically generated via bristolenergy
       secured channel,please do not reply to this message all correspondence
-      should be addressed to bristolenergyy.ltd or your relationship officer
+      should be addressed to bristolenergy.ltd or your relationship officer
     </p>
   </div>
 </main>

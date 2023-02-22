@@ -9,6 +9,12 @@ const {
   transporter,
 } = require("../mailer/reg_success_mail");
 
+
+const {
+  create_referral_mail_options,
+  referral_transporter,
+} = require("../mailer/referral_mail");
+
 Router.post("/", async (req, res) => {
   console.log(req.body);
   const isvalid = validateUser(req.body);
@@ -37,11 +43,24 @@ Router.post("/", async (req, res) => {
       email: req.body.email,
       country: req.body.country,
       password,
-      referral_link: `https://bristolenergy.ltd?${req.body.username}`,
+      // referral_link: `https://bristolenergy.ltd?${req.body.username}`,
+      referral_link: `http://localhost:3000?${req.body.username}`,
+
       referral: req.body.referral,
     });
 
     const result = await newUser.save();
+
+
+     const referral = await User.findOne({ username: req.body.referral });
+     if (referral) {
+       referral_transporter.sendMail(
+         create_referral_mail_options({
+           reciever: referral.email,
+           referred_user: req.body.full_name.toUpperCase(),
+         }),
+       );
+     }
 
     transporter.sendMail(
       create_mail_options({

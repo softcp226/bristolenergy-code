@@ -19,10 +19,12 @@ Router.post("/", verifyToken, async (req, res) => {
         error: true,
         errMessage: "Forbidden!, please login again to access this api",
       });
-    const withdrawal = await Withdrawal_request.find()
-      .populate("user")
-      .skip(req.body.skip_count)
-      .limit(req.body.display_count);
+     const withdrawal = await Withdrawal_request.find({
+      is_approved: false,
+    }).populate("user");
+      // .skip(req.body.skip_count)
+      // .limit(req.body.display_count);
+      
     if (withdrawal.length < 1)
       return res.status(400).json({
         error: true,

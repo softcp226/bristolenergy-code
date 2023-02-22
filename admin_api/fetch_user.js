@@ -18,8 +18,8 @@ Router.post("/", verifyToken, async (req, res) => {
         errMessage: "Forbidden!, please login again to access this api",
       });
     const users = await Users.find()
-      .skip(req.body.skip_count)
-      .limit(req.body.display_count);
+      // .skip(req.body.skip_count)
+      // .limit(req.body.display_count);
     if (users.length < 1)
       return res
         .status(400)

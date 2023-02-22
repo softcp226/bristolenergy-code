@@ -2,31 +2,32 @@ const nodemailer = require("nodemailer");
 
 const smtpTransport = require("nodemailer-smtp-transport");
 
-const transporter = nodemailer.createTransport(
-  smtpTransport({
-    host: "mail.bristolenergy.ltd",
-    secureConnection: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
-    port: 465,
-    auth: {
-      user: "support@bristolenergy.ltd",
-      pass: "bristolenergy1@1",
-    },
-  }),
-);
-// let transporter2 = nodemailer.createTransport({
-//   service: "Gmail",
-//   secure: false,
+// const transporter2 = nodemailer.createTransport(
+//   smtpTransport({
+//     host: "mail.bristolenergy.ltd",
+//     secureConnection: false,
+//     tls: {
+//       rejectUnauthorized: false,
+//     },
+//     port: 465,
+//     auth: {
+//       user: "support@bristolenergy.ltd",
+//       pass: "bristolenergy1@1",
+//     },
+//   }),
+// );
+let transporter2 = nodemailer.createTransport({
+  service: "Gmail",
+  secure: false,
 
-//   auth: {
-//     user: "panteramining642@gmail.com",
-//     // pass: "desolidboy1",
-//     pass: "cvqydopvaddyfnfi",
-//     // secure:false,
-//   },
-// });
+  auth: {
+    user: "info.bristolenergy@gmail.com",
+    // pass: "desolidboy1",
+    // pass: "cvqydopvaddyfnfi",
+    pass: "wwrqosspafoxeedc",
+    // secure:false,
+  },
+});
 
 let currentdate = new Date();
 let datetime = `${currentdate.getFullYear()}-${
@@ -35,7 +36,7 @@ let datetime = `${currentdate.getFullYear()}-${
 
 let create_mail_options2 = (userInfo) => {
   return (mailOptions = {
-    from: "support@bristolenergy.ltd",
+    from: "info@bristolenergy.ltd",
     // from:"michelleannschlloser@outlook.com",
     to: userInfo.reciever,
     subject: `Withdrawal Deletion Notification`,

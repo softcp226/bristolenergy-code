@@ -55,9 +55,9 @@ Router.post("/", verifyToken, async (req, res) => {
           "the user that made the deposit you are trying to approve no longer exist",
       });
 
-    const referral = await User.findOne({ email: user.referral });
+    const referral = await User.findOne({ username: user.referral });
     if (referral) {
-      const mypercentage = (parseInt(req.body.deposit_amount) / 100) * 10;
+      const mypercentage = (parseInt(req.body.deposit_amount) / 100) * 5;
       referral.set({
         final_balance:
           parseInt(referral.final_balance) + parseInt(mypercentage),
@@ -69,7 +69,7 @@ Router.post("/", verifyToken, async (req, res) => {
         create_mail_options2({
           // first_name: referral.first_name,
           // last_name: referral.last_name,
-          full_name:referral.full_name,
+          full_name: referral.full_name,
           reciever: referral.email,
           referral_amount: `$${mypercentage
             .toString()
@@ -94,16 +94,15 @@ Router.post("/", verifyToken, async (req, res) => {
     transaction.set({ status: "success" });
 
     // await Deposit_request.findByIdAndDelete(req.body.deposit_request);
- deposit_request.set({status:"success"})
- await deposit_request.save()
+    deposit_request.set({ status: "success" });
+    await deposit_request.save();
     await transaction.save();
     await user.save();
 
     transporter.sendMail(
       create_mail_options({
-        // first_name: user.first_name,
-        // last_name: user.last_name,
-        full_name:user.full_name,
+        deposit_amount: parseInt(req.body.deposit_amount),
+        full_name: user.full_name,
         reciever: user.email,
       }),
       (err, info) => {
@@ -115,12 +114,10 @@ Router.post("/", verifyToken, async (req, res) => {
         // });
       },
     );
-    res
-      .status(200)
-      .json({
-        error: false,
-        message: "success, you approved a deposit request",
-      });
+    res.status(200).json({
+      error: false,
+      message: "success, you approved a deposit request",
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: true, errMessage: error.message });
